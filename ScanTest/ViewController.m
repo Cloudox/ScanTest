@@ -18,6 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    CGRect screenBounds = [ [ UIScreen mainScreen ] bounds ];
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(30, (screenBounds.size.height - (screenBounds.size.width - 60))/2, screenBounds.size.width - 60, screenBounds.size.width - 60)];
+    imageView.image = [UIImage imageNamed:@"pick_bg"];
+    [self.view addSubview:imageView];
 }
 
 - (IBAction)scan:(id)sender {
@@ -29,6 +33,9 @@
     AVCaptureMetadataOutput * output = [[AVCaptureMetadataOutput alloc]init];
     //设置代理 在主线程里刷新
     [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    // 设置扫码作用区域，参数是区域占全屏的比例,x、y颠倒，高宽颠倒来设置= =什么鬼
+    CGRect screenBounds = [ [ UIScreen mainScreen ] bounds ];
+    [output setRectOfInterest:CGRectMake((screenBounds.size.height - (screenBounds.size.width - 60))/2/screenBounds.size.height, 30/screenBounds.size.width, (screenBounds.size.width - 60)/screenBounds.size.height, (screenBounds.size.width - 60)/screenBounds.size.width)];
     
     //初始化链接对象
     self.session = [[AVCaptureSession alloc]init];
@@ -42,9 +49,12 @@
     
     self.layer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
     self.layer.videoGravity=AVLayerVideoGravityResizeAspectFill;
-    self.layer.frame=self.view.layer.bounds;
-//    [self.view.layer insertSublayer:self.layer atIndex:2];// 设置层级，可以在扫码时显示一些文字
-    [self.view.layer addSublayer:self.layer];
+    self.layer.frame=self.view.layer.bounds;// 设置照相显示的大小
+//    CGRect screenBounds = [ [ UIScreen mainScreen ] bounds ];
+//    self.layer.frame = CGRectMake(30, (screenBounds.size.height - (screenBounds.size.width - 60)) / 2, screenBounds.size.width - 60, screenBounds.size.width - 60);
+    
+    [self.view.layer insertSublayer:self.layer atIndex:0];// 设置层级，可以在扫码时显示一些文字
+//    [self.view.layer addSublayer:self.layer];
     //开始捕获
     [self.session startRunning];
 }
