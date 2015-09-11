@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface ViewController ()
-@property (strong, nonatomic) AVCaptureVideoPreviewLayer * layer;
+
 @end
 
 @implementation ViewController
@@ -18,10 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    CGRect screenBounds = [ [ UIScreen mainScreen ] bounds ];
-    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(30, (screenBounds.size.height - (screenBounds.size.width - 60))/2, screenBounds.size.width - 60, screenBounds.size.width - 60)];
-    imageView.image = [UIImage imageNamed:@"pick_bg"];
-    [self.view addSubview:imageView];
+    
+
 }
 
 - (IBAction)scan:(id)sender {
@@ -53,10 +51,49 @@
 //    CGRect screenBounds = [ [ UIScreen mainScreen ] bounds ];
 //    self.layer.frame = CGRectMake(30, (screenBounds.size.height - (screenBounds.size.width - 60)) / 2, screenBounds.size.width - 60, screenBounds.size.width - 60);
     
-    [self.view.layer insertSublayer:self.layer atIndex:0];// 设置层级，可以在扫码时显示一些文字
+    [self.view.layer insertSublayer:self.layer atIndex:2];// 设置层级，可以在扫码时显示一些文字
 //    [self.view.layer addSublayer:self.layer];
     //开始捕获
     [self.session startRunning];
+    
+    // 方框
+    self.rectImage = [[UIImageView alloc]initWithFrame:CGRectMake(30, (screenBounds.size.height - (screenBounds.size.width - 60))/2, screenBounds.size.width - 60, screenBounds.size.width - 60)];
+    self.rectImage.image = [UIImage imageNamed:@"pick_bg"];
+    [self.view addSubview:self.rectImage];
+    
+    self.explainLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, (screenBounds.size.height - (screenBounds.size.width - 60))/2 + screenBounds.size.width - 50, screenBounds.size.width - 60, 30)];
+    self.explainLabel.text = @"将方框对准二维码、条形码进行扫描";
+    self.explainLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.explainLabel];
+    
+    // 线条动画
+    self.upOrdown = NO;
+    self.num =0;
+    self.line = [[UIImageView alloc] initWithFrame:CGRectMake(70, (screenBounds.size.height - (screenBounds.size.width - 60))/2 + 10, screenBounds.size.width - 140, 2)];
+    self.line.image = [UIImage imageNamed:@"line.png"];
+    [self.view addSubview:self.line];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(animation) userInfo:nil repeats:YES];
+}
+
+// 扫描线条动画
+-(void)animation
+{
+    CGRect screenBounds = [ [ UIScreen mainScreen ] bounds ];
+    if (self.upOrdown == NO) {
+        self.num ++;
+        self.line.frame = CGRectMake(70, (screenBounds.size.height - (screenBounds.size.width - 60))/2 + 10 +2*self.num, screenBounds.size.width - 140, 2);
+        if (2*self.num == 280) {
+            self.upOrdown = YES;
+        }
+    }
+    else {
+        self.num --;
+        self.line.frame = CGRectMake(70, (screenBounds.size.height - (screenBounds.size.width - 60))/2 + 10 +2*self.num, screenBounds.size.width - 140, 2);
+        if (self.num == 0) {
+            self.upOrdown = NO;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,6 +110,12 @@
         self.scanResult.text = metadataObject.stringValue;
         [self.session stopRunning];
         [self.layer removeFromSuperlayer];
+        
+        // 去掉扫描显示的内容
+        [self.timer invalidate];
+        [self.line removeFromSuperview];
+        [self.rectImage removeFromSuperview];
+        [self.explainLabel removeFromSuperview];
         
         /*
         NSString *url = [NSString stringWithFormat:@"http://api.douban.com/book/subject/isbn/%@?alt=json", metadataObject.stringValue];
