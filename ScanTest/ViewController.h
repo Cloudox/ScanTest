@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<AVCaptureMetadataOutputObjectsDelegate>
+@property (strong, nonatomic) AVCaptureSession * session;//输入输出的中间桥梁
+@property (strong, nonatomic) IBOutlet UILabel *scanResult;
 
-
+- (IBAction)scan:(id)sender;
 @end
 
