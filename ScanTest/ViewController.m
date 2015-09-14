@@ -22,7 +22,7 @@
 
 }
 
-- (IBAction)scan:(id)sender {
+- (IBAction)scan:(id)sender {// 按钮响应方法
     //获取摄像设备
     AVCaptureDevice * device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     //创建输入流
@@ -52,7 +52,7 @@
 //    self.layer.frame = CGRectMake(30, (screenBounds.size.height - (screenBounds.size.width - 60)) / 2, screenBounds.size.width - 60, screenBounds.size.width - 60);
     
     [self.view.layer insertSublayer:self.layer atIndex:2];// 设置层级，可以在扫码时显示一些文字
-//    [self.view.layer addSublayer:self.layer];
+    
     //开始捕获
     [self.session startRunning];
     
@@ -107,7 +107,8 @@
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex : 0 ];
         //输出扫描字符串
         NSLog(@"%@",metadataObject.stringValue);
-        self.scanResult.text = metadataObject.stringValue;
+        self.scanResult.text = metadataObject.stringValue;// 将结果显示在label上
+        // 关闭扫描，退出扫描界面
         [self.session stopRunning];
         [self.layer removeFromSuperlayer];
         
@@ -116,22 +117,6 @@
         [self.line removeFromSuperview];
         [self.rectImage removeFromSuperview];
         [self.explainLabel removeFromSuperview];
-        
-        /*
-        NSString *url = [NSString stringWithFormat:@"http://api.douban.com/book/subject/isbn/%@?alt=json", metadataObject.stringValue];
-        NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-        NSData *response = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
-        NSString *str = [[NSString alloc] initWithBytes:[response bytes] length:[response length] encoding:NSUTF8StringEncoding];
-        //    NSLog(@"%@", str);
-        NSData *responseUTF = [str dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error;
-        NSDictionary *infoDic = [NSJSONSerialization JSONObjectWithData:responseUTF options:NSJSONReadingMutableContainers error:&error];
-        if (error) {
-            NSLog(@"error: %@", [error description]);
-            return;
-        }
-        NSLog(@"%@", infoDic);
-        */
     }
 }
 
