@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD73857D1C1F9717008ED9FB /* firstView.png in Resources */ = {isa = PBXBuildFile; fileRef = AD73857B1C1F9716008ED9FB /* firstView.png */; };
+		AD73857E1C1F9717008ED9FB /* secondView.png in Resources */ = {isa = PBXBuildFile; fileRef = AD73857C1C1F9716008ED9FB /* secondView.png */; };
 		AD959FA11BA2F9C800BFEB9C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD959FA01BA2F9C800BFEB9C /* main.m */; };
 		AD959FA41BA2F9C800BFEB9C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD959FA31BA2F9C800BFEB9C /* AppDelegate.m */; };
 		AD959FA71BA2F9C800BFEB9C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD959FA61BA2F9C800BFEB9C /* ViewController.m */; };
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD73857B1C1F9716008ED9FB /* firstView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firstView.png; sourceTree = "<group>"; };
+		AD73857C1C1F9716008ED9FB /* secondView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = secondView.png; sourceTree = "<group>"; };
 		AD959F9B1BA2F9C800BFEB9C /* ScanTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD959F9F1BA2F9C800BFEB9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD959FA01BA2F9C800BFEB9C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 				AD959F9D1BA2F9C800BFEB9C /* ScanTest */,
 				AD959FB71BA2F9C800BFEB9C /* ScanTestTests */,
 				AD959F9C1BA2F9C800BFEB9C /* Products */,
+				AD73857B1C1F9716008ED9FB /* firstView.png */,
+				AD73857C1C1F9716008ED9FB /* secondView.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -207,9 +213,11 @@
 			files = (
 				AD959FAA1BA2F9C800BFEB9C /* Main.storyboard in Resources */,
 				AD959FC71BA3124600BFEB9C /* line@2x.png in Resources */,
+				AD73857E1C1F9717008ED9FB /* secondView.png in Resources */,
 				AD959FAF1BA2F9C800BFEB9C /* LaunchScreen.xib in Resources */,
 				AD959FC51BA30AAB00BFEB9C /* pick_bg@2x.png in Resources */,
 				AD959FAC1BA2F9C800BFEB9C /* Images.xcassets in Resources */,
+				AD73857D1C1F9717008ED9FB /* firstView.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +432,7 @@
 				AD959FC01BA2F9C800BFEB9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD959FC11BA2F9C800BFEB9C /* Build configuration list for PBXNativeTarget "ScanTestTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +441,7 @@
 				AD959FC31BA2F9C800BFEB9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
